@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns:context="http://www.springframework.org/schema/context"
+          xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+          xsi:schemaLocation=
+          "http://www.springframework.org/schema/context
+          http://www.springframework.org/schema/context/spring-context.xsd
+          http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo.xsd
+          http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<context:component-scan base-package="com.example.mongodb"></context:component-scan>
+	<context:annotation-config />
+	
+    <!-- Default bean name is 'mongo' -->
+    <context:property-placeholder location="classpath:application.properties"/>
+    <mongo:mongo-client id="mongoClient" host="${mongo.host}" port="${mongo.port}"/>
+	<mongo:db-factory id="mongoDbFactory" dbname="${mongo.dbname}" mongo-ref="mongoClient" />
+	<mongo:template id="mongoTemplate" db-factory-ref="mongoDbFactory"/>
+	<mongo:repositories base-package="com.example.mongodb.repository"></mongo:repositories>
+	
+	<bean id="app" class="com.example.mongodb.App" autowire="byName"/>
+</beans>
