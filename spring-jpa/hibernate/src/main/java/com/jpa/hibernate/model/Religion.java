@@ -9,7 +9,7 @@ public class Religion {
 	
 	private String subReligion;
 	
-	
+	public Religion() {}
 	public Religion(String religion, String subReligion) {
 		super();
 		this.religion = religion;

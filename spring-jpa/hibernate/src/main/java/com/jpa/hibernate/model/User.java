@@ -4,10 +4,18 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GeneratorType;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "user")
@@ -35,8 +43,10 @@ public class User {
 	}
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
+	@Column(nullable=false,length=50)
 	private String name;
 
 	@Column
@@ -45,8 +55,10 @@ public class User {
 
 	private boolean isActive;
 
+	@Column(precision=2)
 	private double salary;
 
+	@Enumerated(EnumType.STRING)
 	private SEX sex;
 
 	@Column
@@ -57,9 +69,15 @@ public class User {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date2;
 
+	@CreationTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
 
+	@UpdateTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date modified;
+	
+	private Religion religion;
 
 	public int getId() {
 		return id;
@@ -139,6 +157,14 @@ public class User {
 
 	public void setModified(Date modified) {
 		this.modified = modified;
+	}
+
+	public Religion getReligion() {
+		return religion;
+	}
+
+	public void setReligion(Religion religion) {
+		this.religion = religion;
 	}
 
 }
