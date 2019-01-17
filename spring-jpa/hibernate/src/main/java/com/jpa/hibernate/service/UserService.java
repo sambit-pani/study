@@ -20,4 +20,9 @@ public class UserService {
 		User savedUser = userManager.save(user);
 		log.info("User is saved with id:"+savedUser.getId());
 	}
+	
+	public void getUserById(int id) {
+		User user = userManager.getUserById(id);
+		log.info("User retrieved:"+user);
+	}
 }

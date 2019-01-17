@@ -1,5 +1,6 @@
 package com.jpa.hibernate;
 
+import java.util.Properties;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -17,7 +18,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -28,14 +31,12 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(entityManagerFactoryRef = "mysqlEntityManagerFactory",
-				transactionManagerRef = "mysqlTransactionManager", 
-				basePackages = {"com.jpa.hibernate.repository" })
+@EnableJpaRepositories(entityManagerFactoryRef = "mysqlEntityManagerFactory", transactionManagerRef = "mysqlTransactionManager", basePackages = {
+		"com.jpa.hibernate.repository" })
 public class MySQLDatabaseConfiguration {
-	
+
 	@Bean(name = "mysqlDatasource")
 	@ConfigurationProperties(prefix = "mysql.datasource")
 	public DataSource dataSource() {
@@ -50,25 +51,20 @@ public class MySQLDatabaseConfiguration {
 		return new JpaProperties();
 	}
 
-	@Bean(name = "mysqlEntityManagerFactory")
-	public LocalContainerEntityManagerFactoryBean entityManagerFactory(JpaProperties mysqlJpaProperties,DataSource dataSource) {
-		 LocalContainerEntityManagerFactoryBean em 
-	        = new LocalContainerEntityManagerFactoryBean();
-	      em.setDataSource(dataSource);
-	      em.setPackagesToScan(new String[] { "com.jpa.hibernate.model" });
-	 
-	      JpaVendorAdapter vendorAdapter = createJpaVendorAdapter(mysqlJpaProperties);
-	      em.setJpaVendorAdapter(vendorAdapter);
-	     //em.setJpaProperties(additionalProperties());
-	      
-	      return em;
+	@Bean(name = "sessionFactory")
+	public LocalSessionFactoryBean sessionFactory(DataSource dataSource) {
+		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+		sessionFactory.setDataSource(dataSource);
+		sessionFactory.setPackagesToScan("com.jpa.hibernate.model");
+		sessionFactory.setHibernateProperties(additionalProperties());
+		return sessionFactory;
 	}
 
-	/*private EntityManagerFactoryBuilder createEntityManagerFactoryBuilder(JpaProperties mysqlJpaProperties) {
-		JpaVendorAdapter jpaVendorAdapter = createJpaVendorAdapter(mysqlJpaProperties);
-		return new EntityManagerFactoryBuilder(jpaVendorAdapter, mysqlJpaProperties.getProperties(),
-				this.persistenceUnitManager);
-	}*/
+	@Bean(name = "transactionManager")
+	public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory) {
+		HibernateTransactionManager transactionManager = new HibernateTransactionManager(sessionFactory);
+		return transactionManager;
+	}
 
 	private JpaVendorAdapter createJpaVendorAdapter(JpaProperties jpaProperties) {
 		AbstractJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
@@ -79,20 +75,31 @@ public class MySQLDatabaseConfiguration {
 		return adapter;
 	}
 
-	@Bean(name = "mysqlTransactionManager")
-	public PlatformTransactionManager transactionManager(
-			@Qualifier("mysqlEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
-		return new JpaTransactionManager(entityManagerFactory);
+	@Bean(name = "mysqlEntityManagerFactory")
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory(JpaProperties mysqlJpaProperties,
+			DataSource dataSource) {
+		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
+		em.setDataSource(dataSource);
+		em.setPackagesToScan(new String[] { "com.jpa.hibernate.model" });
+
+		JpaVendorAdapter vendorAdapter = createJpaVendorAdapter(mysqlJpaProperties);
+		em.setJpaVendorAdapter(vendorAdapter);
+		// em.setJpaProperties(additionalProperties());
+
+		return em;
 	}
-	
-	/*Properties additionalProperties() {
-	       Properties properties = new Properties();
-	       //properties.setProperty("hibernate.hbm2ddl.auto", "create");
-	       properties.setProperty(
-	         "hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
-	       properties.setProperty(
-	  	         "hibernate.show_sql", "true");
-	        
-	       return properties;
-	   }*/
+
+	@Bean
+	public HibernateTemplate createHibernateTemplate(SessionFactory sessionFactory) {
+		return new HibernateTemplate(sessionFactory);
+	}
+
+	Properties additionalProperties() {
+		Properties properties = new Properties();
+		// properties.setProperty("hibernate.hbm2ddl.auto", "create");
+		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+		properties.setProperty("hibernate.show_sql", "true");
+
+		return properties;
+	}
 }

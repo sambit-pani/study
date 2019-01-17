@@ -22,6 +22,11 @@ public class UserManager {
 	public User save(User user) {
 		return userRepository.save(user);
 	}
+
+	public User getUserById(int id) {
+		//return userRepository.findById(id).get();
+		return userDao.getUserById(id);
+	}
 	
 	
 	

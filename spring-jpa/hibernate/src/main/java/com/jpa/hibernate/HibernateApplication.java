@@ -25,11 +25,13 @@ public class HibernateApplication implements CommandLineRunner{
 	}
 	@Override
 	public void run(String... args) throws Exception {
-		Calendar dob = Calendar.getInstance();dob.set(1929,2,23);
+		/*Calendar dob = Calendar.getInstance();dob.set(1929,2,23);
 		Religion r = new Religion("hindi", "sudra");
 		User user = new User("namo", dob.getTime(), true, 1233.41, SEX.MALE, new Date(), new Date(), new Date(), new Date());
 		user.setReligion(r);
-		userService.saveUser(user);
+		userService.saveUser(user);*/
+		
+		userService.getUserById(1);
 	}
 	
 	

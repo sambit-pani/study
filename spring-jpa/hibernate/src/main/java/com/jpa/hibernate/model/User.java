@@ -167,4 +167,9 @@ public class User {
 		this.religion = religion;
 	}
 
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + "]";
+	}
+
 }
