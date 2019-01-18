@@ -31,7 +31,7 @@ public class HibernateApplication implements CommandLineRunner{
 		user.setReligion(r);
 		userService.saveUser(user);*/
 		
-		userService.getUserById(1);
+		userService.showUsersBySex(SEX.MALE);
 	}
 	
 	
