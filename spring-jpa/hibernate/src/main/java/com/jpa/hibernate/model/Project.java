@@ -32,7 +32,7 @@ public class Project {
 	@JoinColumn(name="deliveryHead",referencedColumnName="id")
 	private Employee deliveryHead;
 	
-	@OneToMany(mappedBy="project")
+	@OneToMany(mappedBy="project",fetch=FetchType.LAZY)
 	private List<Employee> employees;
 	
 	@ManyToMany(fetch = FetchType.LAZY,cascade=CascadeType.ALL)

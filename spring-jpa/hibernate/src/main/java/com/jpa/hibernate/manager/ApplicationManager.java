@@ -51,7 +51,8 @@ public class ApplicationManager {
 	}
 	
 	public Employee getEmployeeById(int id) {
-		return employeeRepo.findById(id).get();
+		Employee emp =employeeRepo.findById(id).get();
+		return emp;
 	}
 	
 	public Department getDeptById(int id) {

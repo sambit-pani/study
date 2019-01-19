@@ -1,5 +1,7 @@
 package com.jpa.hibernate.service;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,6 +10,7 @@ import com.jpa.hibernate.model.Department;
 import com.jpa.hibernate.model.Employee;
 import com.jpa.hibernate.model.Location;
 import com.jpa.hibernate.model.Project;
+
 
 @Service
 public class ApplicationService {
@@ -21,9 +24,17 @@ public class ApplicationService {
 	public void saveDepartment(Department dept) {
 		manager.saveDepartment(dept);
 	}
+	public void saveProject(Project proj) {
+		manager.saveProject(proj);
+	}
+	public void saveLocation(Location loc) {
+		manager.saveLocation(loc);
+	}
 	
 	public Employee getEmployee(int id) {
-		return manager.getEmployeeById(id);
+		Employee emp = manager.getEmployeeById(id);
+		System.out.println(emp.getDepartment());
+		return emp;
 	}
 	public Department getDepartment(int id) {
 		return manager.getDeptById(id);

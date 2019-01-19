@@ -5,6 +5,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -26,6 +28,7 @@ import com.jpa.hibernate.service.UserService;
 @SpringBootApplication
 public class HibernateApplication implements CommandLineRunner{
 
+	private final Log logger = LogFactory.getLog(HibernateApplication.class);
 	@Autowired
 	private UserService userService;
 	
@@ -48,12 +51,10 @@ public class HibernateApplication implements CommandLineRunner{
 		applicationService.saveEmployee(emp);*/
 		
 		
-		Employee head = applicationService.getEmployee(4);
-		Employee emp1 = applicationService.getEmployee(1);
-		Employee emp2 = applicationService.getEmployee(2);
-		
-		emp1.setManager(head);emp2.setManager(head);
-		applicationService.saveEmployee(emp1);applicationService.saveEmployee(emp2);
+		Employee e = applicationService.getEmployee(1);
+		logger.info("Got Employee from DB");
+		System.out.println(e.getDepartment().getName());
+		//System.out.println(e);
 		//Project pro = new Project(name, deliveryHead, location)
 	/*	Location loc = new Location("frankfurt");
 		Project project = new Project("banking", null, new HashSet<>(Arrays.asList(loc)));
