@@ -1,5 +1,6 @@
 package com.jpa.hibernate.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OrderBy;
+
 @Entity
 @Table(name="dept")
 public class Department {
@@ -23,9 +26,8 @@ public class Department {
 	@Column(nullable=false)
 	private String name;
 	
-	@OneToMany(fetch=FetchType.LAZY)
-	@JoinColumn(name = "deptId", referencedColumnName = "id")
-	private List<Employee> employee;
+	@OneToMany(fetch=FetchType.LAZY,mappedBy="department")
+	private List<Employee> employee = new ArrayList<>();
 	
 	public Department() {}
 
@@ -57,6 +59,11 @@ public class Department {
 	public void setEmployee(List<Employee> employee) {
 		this.employee = employee;
 	}
-	
+	public void addEmployee(Employee emp) {
+		employee.add(emp);
+	}
+	public void removeEmployee(Employee emp) {
+		employee.remove(emp);
+	}
 	
 }

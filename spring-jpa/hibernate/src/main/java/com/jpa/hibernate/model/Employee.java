@@ -27,11 +27,11 @@ public class Employee {
 	@Column(nullable=false)
 	private String name;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "deptId", referencedColumnName = "id")
 	private Department department;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "project", referencedColumnName = "id")
 	private Project project;
 	
@@ -39,9 +39,20 @@ public class Employee {
 	@JoinColumn(name="manager",referencedColumnName="id")
 	private Employee manager;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="location",referencedColumnName="id")
 	private Location location;
+
+	public Employee() {}
+	
+	public Employee(String name, Department department, Project project, Employee manager, Location location) {
+		super();
+		this.name = name;
+		this.department = department;
+		this.project = project;
+		this.manager = manager;
+		this.location = location;
+	}
 
 	public int getId() {
 		return id;
@@ -89,6 +100,28 @@ public class Employee {
 
 	public void setLocation(Location location) {
 		this.location = location;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Employee other = (Employee) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 	
 	

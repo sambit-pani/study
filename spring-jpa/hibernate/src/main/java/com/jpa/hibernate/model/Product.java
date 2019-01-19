@@ -1,10 +1,9 @@
 package com.jpa.hibernate.model;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,25 +11,24 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.ManyToOne;
 
 @Entity
-@Table(name="location")
-public class Location {
+public class Product {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(nullable=false)
 	private String name;
 	
-	@ManyToMany(mappedBy="location")
-	private Set<Project> projects;
+	@ManyToMany
+	@JoinTable(joinColumns= @JoinColumn(name="productId"),inverseJoinColumns= @JoinColumn(name="cardId"))
+	private List<Cart> cart=new ArrayList<>();
 	
-	public Location() {}
+	public Product() {}
 
-	public Location(String name) {
+	public Product(String name) {
 		super();
 		this.name = name;
 	}
@@ -51,12 +49,12 @@ public class Location {
 		this.name = name;
 	}
 
-	public Set<Project> getProjects() {
-		return projects;
+	public List<Cart> getCart() {
+		return cart;
 	}
 
-	public void setProjects(Set<Project> projects) {
-		this.projects = projects;
+	public void setCart(List<Cart> cart) {
+		this.cart = cart;
 	}
 	
 	

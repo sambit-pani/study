@@ -3,6 +3,7 @@ package com.jpa.hibernate.model;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,23 +32,22 @@ public class Project {
 	@JoinColumn(name="deliveryHead",referencedColumnName="id")
 	private Employee deliveryHead;
 	
-	@OneToMany
-	@JoinColumn(name="project",referencedColumnName="id")
+	@OneToMany(mappedBy="project")
 	private List<Employee> employees;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
 	@JoinTable(name = "project_loc", 
 				joinColumns = @JoinColumn(name = "proj_id"),
 				inverseJoinColumns = @JoinColumn(name = "loc_id"))
-	private Set<Location> locations;
+	private Set<Location> location;
 
 	public Project() {}
 
-	public Project(String name, Employee deliveryHead, Set<Location> locations) {
+	public Project(String name, Employee deliveryHead, Set<Location> location) {
 		super();
 		this.name = name;
 		this.deliveryHead = deliveryHead;
-		this.locations = locations;
+		this.location = location;
 	}
 
 	public int getId() {
@@ -74,12 +74,12 @@ public class Project {
 		this.deliveryHead = deliveryHead;
 	}
 
-	public Set<Location> getLocations() {
-		return locations;
+	public Set<Location> getLocation() {
+		return location;
 	}
 
-	public void setLocations(Set<Location> locations) {
-		this.locations = locations;
+	public void setLocation(Set<Location> location) {
+		this.location = location;
 	}
 	
 	

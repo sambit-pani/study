@@ -60,7 +60,7 @@ public class MySQLDatabaseConfiguration {
 		return sessionFactory;
 	}
 
-	@Bean(name = "transactionManager")
+	@Bean(name = "mysqlTransactionManager")
 	public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory) {
 		HibernateTransactionManager transactionManager = new HibernateTransactionManager(sessionFactory);
 		return transactionManager;
