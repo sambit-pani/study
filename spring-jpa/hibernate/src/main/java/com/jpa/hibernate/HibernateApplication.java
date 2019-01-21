@@ -51,9 +51,15 @@ public class HibernateApplication implements CommandLineRunner{
 		applicationService.saveEmployee(emp);*/
 		
 		
-		Employee e = applicationService.getEmployee(1);
-		logger.info("Got Employee from DB");
-		System.out.println(e.getDepartment().getName());
+		/*Employee e = applicationService.getEmployee(1);
+		logger.info("Got Employee from DB");*/
+		
+
+		//Department dept = applicationService.getDepartment(1);
+		
+		applicationService.getRowCount();
+		
+		
 		//System.out.println(e);
 		//Project pro = new Project(name, deliveryHead, location)
 	/*	Location loc = new Location("frankfurt");

@@ -1,5 +1,7 @@
 package com.jpa.hibernate.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +35,6 @@ public class ApplicationService {
 	
 	public Employee getEmployee(int id) {
 		Employee emp = manager.getEmployeeById(id);
-		System.out.println(emp.getDepartment());
 		return emp;
 	}
 	public Department getDepartment(int id) {
@@ -45,6 +46,16 @@ public class ApplicationService {
 	}
 	public Location getLocation(int id) {
 		return manager.getLocById(id);
+	}
+	public List<Department> getAllDept(){
+		return manager.getDepartments();
+	}
+	public List<Employee> getEmployees(){
+		return manager.getEmployees();
+	}
+	
+	public void getRowCount() {
+		manager.getRowCount();
 	}
 	
 }

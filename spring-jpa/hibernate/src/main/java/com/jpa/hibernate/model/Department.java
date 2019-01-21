@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.OrderBy;
 
 @Entity
@@ -26,7 +28,8 @@ public class Department {
 	@Column(nullable=false)
 	private String name;
 	
-	@OneToMany(fetch=FetchType.LAZY,mappedBy="department")
+	@OneToMany(fetch=FetchType.EAGER,mappedBy="department")
+	//@Fetch(FetchMode.SELECT)
 	private List<Employee> employee = new ArrayList<>();
 	
 	public Department() {}

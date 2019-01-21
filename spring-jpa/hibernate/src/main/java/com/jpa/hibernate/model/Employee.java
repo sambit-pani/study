@@ -27,7 +27,7 @@ public class Employee {
 	@Column(nullable=false)
 	private String name;
 	
-	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinColumn(name = "deptId", referencedColumnName = "id")
 	private Department department;
 	

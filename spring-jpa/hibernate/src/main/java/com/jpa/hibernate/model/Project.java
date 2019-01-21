@@ -17,6 +17,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @Entity
 @Table(name="project")
 public class Project {
@@ -28,11 +31,12 @@ public class Project {
 	@Column(nullable=false)
 	private String name;
 	
-	@OneToOne
+	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="deliveryHead",referencedColumnName="id")
 	private Employee deliveryHead;
 	
-	@OneToMany(mappedBy="project",fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="project")
+	@Fetch(FetchMode.JOIN)
 	private List<Employee> employees;
 	
 	@ManyToMany(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
@@ -80,6 +84,14 @@ public class Project {
 
 	public void setLocation(Set<Location> location) {
 		this.location = location;
+	}
+
+	public List<Employee> getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(List<Employee> employees) {
+		this.employees = employees;
 	}
 	
 	

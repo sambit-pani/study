@@ -1,5 +1,7 @@
 package com.jpa.hibernate.manager;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,14 +58,34 @@ public class ApplicationManager {
 	}
 	
 	public Department getDeptById(int id) {
-		return deptRepo.findById(id).get();
+		Department dept = deptRepo.findById(id).get();
+		System.out.println(dept.getEmployee().size());
+		return dept;
 	}
-	
+	public Department getDeptByName(String name) {
+		return applicationDao.getDepartmentByName(name);
+	}
 	public Project getProjectById(int id) {
-		return proRepo.findById(id).get();
+		Project p = proRepo.findById(id).get();
+		List<Employee>emps = p.getEmployees();
+		System.out.println(emps.size());
+		return p;
 	}
 	
 	public Location getLocById(int id) {
 		return locRepo.getOne(id);
+	}
+	public List<Department> getDepartments(){
+		List<Department> depts = deptRepo.findAll();
+		depts.stream().forEach(d -> {System.out.println(d.getEmployee().size());});
+		return depts;
+	}
+	
+	public List<Employee> getEmployees() {
+		return employeeRepo.findAll();
+	}
+	
+	public void getRowCount() {
+		applicationDao.getRowCount();
 	}
 }
