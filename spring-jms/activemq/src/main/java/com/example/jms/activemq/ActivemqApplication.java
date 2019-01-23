@@ -22,8 +22,8 @@ public class ActivemqApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		User user = new User(1, "sambit pani", new Date(2016, 11, 02));
-		producer.sendUser(user);
+		User user = new User(1, "manasi panda", new Date(2012, 05,02));
+		producer.sendUserUsingMessageCreator(user);
 	}
 
 }
