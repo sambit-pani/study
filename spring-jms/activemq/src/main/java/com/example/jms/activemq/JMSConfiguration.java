@@ -1,5 +1,6 @@
 package com.example.jms.activemq;
 
+import javax.jms.ConnectionFactory;
 import javax.jms.Session;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
@@ -21,8 +22,8 @@ public class JMSConfiguration {
 	
 	private Log log = LogFactory.getLog(getClass());
 
-	@Value("${activemq.broker.url}")
-	private String activeMqBrokerUrl;
+	/*@Value("${activemq.broker.url}")
+	private String activeMqBrokerUrl;*/
 
 	@Value("${activemq.destination.name}")
 	private String destinationName;
@@ -30,18 +31,22 @@ public class JMSConfiguration {
 	@Autowired
 	private UserListener userListener;
 	
-	ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();
+	@Autowired
+	ConnectionFactory connectionFactory;
 
-	@Bean(name = "jmsTemplate")
+	
+	/*
+	 * 
+	 *  ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();
+	 @Bean(name = "jmsTemplate")
 	public JmsTemplate jmsTemplate() {
-		connectionFactory.setBrokerURL(activeMqBrokerUrl);
 		JmsTemplate jmsTemplate = new JmsTemplate();
 		jmsTemplate.setConnectionFactory(connectionFactory);
 		return jmsTemplate;
-	}
+	}*/
 	@Bean(name = "defaultMessageListenerContainer")
     public DefaultMessageListenerContainer messageListenerContainer(){
-		connectionFactory.setBrokerURL(activeMqBrokerUrl);
+		//connectionFactory.setBrokerURL(activeMqBrokerUrl);
     	log.info("Queue name: " + destinationName);
         DefaultMessageListenerContainer defaultMessageListenerContainer = new DefaultMessageListenerContainer();
         defaultMessageListenerContainer.setConnectionFactory(connectionFactory);
