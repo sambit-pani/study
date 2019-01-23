@@ -1,4 +1,4 @@
-package com.sambit.study.springboot.model;
+package com.example.rest.webservice.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
