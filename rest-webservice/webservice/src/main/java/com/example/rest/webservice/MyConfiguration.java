@@ -32,7 +32,7 @@ public class MyConfiguration {
 	@Autowired
 	private Environment env;
 	 
-    @Value("${hibernate.dialect}")         private String hibernateDialect;
+    @Value("${hibernate.dialect}")      private String hibernateDialect;
     @Value("${hibernate.show_sql}")     private String hibernateShowSql;
     @Value("${hibernate.hbm2ddl.auto}") private String hibernateHbm2ddlAuto;
         
@@ -68,7 +68,6 @@ public class MyConfiguration {
     }
         
     @Bean
-    @Primary
     public LocalSessionFactoryBean getSessionFactory()
     {
     	LocalSessionFactoryBean asfb = new LocalSessionFactoryBean();
@@ -91,6 +90,7 @@ public class MyConfiguration {
     
     /// Entity Manager Factory
     @Bean(name = "h2EntityManagerFactory")
+    @Primary
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory(JpaProperties databaseProperties,
 			DataSource dataSource) {
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();

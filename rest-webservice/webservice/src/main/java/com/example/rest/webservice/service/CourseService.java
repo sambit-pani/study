@@ -3,6 +3,8 @@ package com.example.rest.webservice.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,7 @@ import com.example.rest.webservice.model.Topic;
 import com.example.rest.webservice.repository.CourseRepository;
 
 @Service
+@Transactional
 public class CourseService {
 
 	@Autowired
@@ -43,21 +46,8 @@ public class CourseService {
 		courseRepo.deleteById(id);
 	}
 
-	public HibernateTemplate getTemplate() {
-		return template;
+	public void saveTopic(Topic topic) {
+		template.save(topic);
 	}
-
-	public void setTemplate(HibernateTemplate template) {
-		this.template = template;
-	}
-
-	public CourseRepository getCourseRepo() {
-		return courseRepo;
-	}
-
-	public void setCourseRepo(CourseRepository courseRepo) {
-		this.courseRepo = courseRepo;
-	}
-	
 	
 }
