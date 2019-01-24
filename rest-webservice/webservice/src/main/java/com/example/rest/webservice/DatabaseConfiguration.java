@@ -27,7 +27,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 @EnableAutoConfiguration
 @EnableJpaRepositories(basePackages = {
 		"com.example.rest.webservice.repository" }, entityManagerFactoryRef = "h2EntityManagerFactory", transactionManagerRef = "transactionManager")
-public class MyConfiguration {
+public class DatabaseConfiguration {
 
 	@Autowired
 	private Environment env;
@@ -73,7 +73,7 @@ public class MyConfiguration {
     	LocalSessionFactoryBean asfb = new LocalSessionFactoryBean();
         asfb.setDataSource(getDataSource());
         asfb.setHibernateProperties(getHibernateProperties());        
-        asfb.setPackagesToScan(new String[]{" com.example.rest.webservice.model"});
+        asfb.setPackagesToScan(new String[]{"com.example.rest.webservice.model"});
         return asfb;
     }
 

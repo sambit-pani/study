@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Topic {
@@ -11,7 +12,10 @@ public class Topic {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	
+	@Size(min=2,message="name should have atleast 2 character")
 	private String name;
+	
 	private String description;
 	
 	public Topic() {}

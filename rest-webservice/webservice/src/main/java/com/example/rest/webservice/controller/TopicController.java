@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,7 +44,7 @@ public class TopicController {
 	}
 	
 	@RequestMapping(value = "topics", method = RequestMethod.POST)
-	public ResponseEntity<Topic> addTopic(@RequestBody Topic topic) {
+	public ResponseEntity<Topic> addTopic(@Valid @RequestBody Topic topic) {
 		topicService.addTopic(topic);
 		URI createdURI = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(topic.getId())
