@@ -13,8 +13,8 @@ import com.amazonaws.services.sqs.model.SendMessageRequest;
 public class SendMessage {
 
 	public static void main(String[] args) throws InterruptedException {
-		BasicAWSCredentials awsCreds = new BasicAWSCredentials("AKIAI44QVRRSPWDIY7LQ",
-				"rj1sI3bj6J0k7Uj+TP70LxKRqd4eRxw12M7JvdZ1");
+		BasicAWSCredentials awsCreds = new BasicAWSCredentials("key",
+				"id");
 		AmazonSQS sqs = AmazonSQSClientBuilder.standard().withCredentials(new AWSStaticCredentialsProvider(awsCreds))
 				.withRegion("us-east-2").build();
 		ListQueuesResult lq_result = sqs.listQueues();
