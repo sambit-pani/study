@@ -27,3 +27,6 @@ ElasticSearch/target
 /dist/
 /nbdist/
 /.nb-gradle/
+
+
+/solvian_test

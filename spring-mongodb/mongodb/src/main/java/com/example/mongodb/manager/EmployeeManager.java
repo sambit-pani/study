@@ -51,7 +51,7 @@ public class EmployeeManager {
 	}
 	
 	public void aggregateEmployee() {
-		template.aggregate(aggregation, inputType, outputType)
+		//template.aggregate(aggregation, inputType, outputType)
 	}
 	
 	
