@@ -2,7 +2,11 @@ package com.jpa.hibernate.dao;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -48,4 +52,18 @@ public class UserDao extends BasicDao {
 						Restrictions.gt("salary", 10000.00))));
 		return getList(criteria);
 	}
+	
+	@Transactional
+	public void testHibernate() {
+		Session session = getSessionFactory().getCurrentSession();
+		User user = session.load(User.class, 1);
+		System.out.println("Get User from DB");
+		System.out.println(user);
+		user = session.load(User.class, 1);
+		System.out.println("Get User from DB");
+		System.out.println(user);
+		
+	}
+	
+	
 }

@@ -38,4 +38,8 @@ public class UserService {
 		List<User> users = userManager.getUsersBySex(sex);
 		users.stream().forEach(user -> {System.out.println(user.getName());});
 	}
+	public void testHibernate() {
+		userManager.testHibernate();
+	}
+	
 }

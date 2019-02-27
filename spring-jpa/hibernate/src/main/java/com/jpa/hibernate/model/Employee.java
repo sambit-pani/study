@@ -27,11 +27,11 @@ public class Employee {
 	@Column(nullable=false)
 	private String name;
 	
-	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "deptId", referencedColumnName = "id")
 	private Department department;
 	
-	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "project", referencedColumnName = "id")
 	private Project project;
 	
@@ -39,7 +39,7 @@ public class Employee {
 	@JoinColumn(name="manager",referencedColumnName="id")
 	private Employee manager;
 	
-	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="location",referencedColumnName="id")
 	private Location location;
 

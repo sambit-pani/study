@@ -57,7 +57,9 @@ public class HibernateApplication implements CommandLineRunner{
 
 		//Department dept = applicationService.getDepartment(1);
 		
-		applicationService.getRowCount();
+		//applicationService.getRowCount();
+		
+		userService.testHibernate();
 		
 		
 		//System.out.println(e);

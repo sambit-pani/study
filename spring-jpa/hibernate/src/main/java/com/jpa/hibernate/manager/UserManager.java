@@ -12,7 +12,7 @@ import com.jpa.hibernate.model.User;
 import com.jpa.hibernate.model.User.SEX;
 import com.jpa.hibernate.repository.UserRepository;
 
-@Transactional
+
 @Component
 public class UserManager {
 
@@ -39,4 +39,7 @@ public class UserManager {
 		return userDao.getUserBySex(sex);
 	}
 	
+	public void testHibernate() {
+		userDao.testHibernate();
+	}
 }
