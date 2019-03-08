@@ -15,5 +15,7 @@ export class DateComponent implements OnInit {
     },1000);
   }
   ngOnInit() {}
-
+  addNumber(a:number,b:number):number{
+      return a+b;
+  }
 }

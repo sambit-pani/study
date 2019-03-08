@@ -1,0 +1,15 @@
+<p>
+  address-card 
+
+
+</p>
+<div>
+  <h1>{{userObj.name}}</h1>
+  <p>{{user.title}}</p>
+  <p>{{user.address}}</p>
+  <div *ngIf = "user.phone && user.phone.length"> Phone:
+  <ul>
+    <li *ngFor = "let phone of user.phone">{{phone}}</li>
+  </ul>
+</div>
+</div>
