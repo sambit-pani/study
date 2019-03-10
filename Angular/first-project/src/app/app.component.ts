@@ -9,6 +9,9 @@ import { User } from './address-card/user.model';
 export class AppComponent {
   title = 'Hello Angular';
   user:User;
+
+  textValue:string = "abc";
+
   constructor(){
     this.user = new User();
     this.user.name = "makuli";
