@@ -1,3 +1,9 @@
 <p>
   view-component works!
 </p>
+<input type="text" [(ngModel)]="userName">
+<button (click)="getUserDetails()"> Get Details</button>
+<div *ngIf="response">
+{{response.id}}
+</div>
+{{response?.login}}
