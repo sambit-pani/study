@@ -27,7 +27,7 @@ import { TestService } from './test.service';
     BrowserModule,
     AppRoutingModule,
     FormsModule ,
-    HttpClientModule,
+  
     ViewModule
   ],
   providers: [ ],
