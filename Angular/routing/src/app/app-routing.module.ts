@@ -12,9 +12,11 @@ const routes: Routes = [
   {
     path:'settings',
     component:SettingComponent,
-    children: [
+    children:[
+      {path:'',redirectTo:'profile',pathMatch:'full'},
       {path:'contact',component:SettingContactComponent},
-      {path:'profile',component:SettingProfileComponent}
+      {path:'profile',component:SettingProfileComponent},
+      {path:'**',component:PageNotFoundComponent}
     ]
   },
   {path:'**',component:PageNotFoundComponent}
