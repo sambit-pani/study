@@ -1,7 +1,13 @@
 <h3>Blog List</h3>
 
+<a href="#" (click)="expandFirst()">Expand First</a>
+<a href="#" (click)="expandAll()">Expand All</a>
+
+<app-blog-post #firstComp [title]="posts[0][0].title" 
+[summary] = "posts[0][0].summary"></app-blog-post>
+
 <app-blog-post *ngFor="let post of posts[currentPage]" [title]="post.title" 
-[summary] = "post.summary"></app-blog-post>
+[summary] = "post.summary" #postComponents></app-blog-post>
 
 <app-paginator [noOfPage]="posts.length" (pageClicked)= "updatePage($event)"></app-paginator>
 
