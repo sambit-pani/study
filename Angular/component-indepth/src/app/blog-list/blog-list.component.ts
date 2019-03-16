@@ -36,4 +36,8 @@ export class BlogListComponent implements OnInit {
     this.postComponents.forEach(post => post.expand());
   }
 
+  favAll(){
+    this.posts[this.currentPage].forEach(post => post.isFav=true);
+  }
+
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { TruncatePipe } from '../truncate.pipe';
+import { Post } from '../post';
+import { post } from 'selenium-webdriver/http';
 
 @Component({
   selector: 'app-blog-post',
@@ -8,20 +10,24 @@ import { TruncatePipe } from '../truncate.pipe';
 })
 export class BlogPostComponent implements OnInit {
 
-  @Input() title:string;
-  @Input()  summary:string;
+  @Input() post:Post;
+
   fullSummary:string;
   constructor(private truncatePipe:TruncatePipe) { }
 
   ngOnInit() {
-    this.fullSummary = this.summary;
-    this.summary = this.truncatePipe.transform(this.summary, 25);
+    this.fullSummary = this.post.summary;
+    this.post.summary = this.truncatePipe.transform(this.post.summary, 25);
   }
   expand(){
-    if(this.summary === this.fullSummary){
-      this.summary = this.truncatePipe.transform(this.summary, 25);
+    if(this.post.summary === this.fullSummary){
+      this.post.summary = this.truncatePipe.transform(this.post.summary, 25);
     }else{
-      this.summary = this.fullSummary;
+      this.post.summary = this.fullSummary;
     }
+  }
+
+  toggleFav(){
+   this.post.isFav = !this.post.isFav;
   }
 }
